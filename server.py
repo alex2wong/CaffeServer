@@ -4,7 +4,7 @@ from uuid import uuid4
 import json
 import os
 import sys
-import imageop
+#import imageop
 
 app = Flask(__name__)
 
@@ -53,4 +53,4 @@ def addImage():
     return jsonify(msg='upload success', imageurl='./assets/' + imageName)
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8000)
+    app.run(host='0.0.0.0',port=8000)
