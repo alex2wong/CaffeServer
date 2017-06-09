@@ -73,7 +73,7 @@ def imageClassify(net, image_name):
     # Visualize detections for each class
     CONF_THRESH = 0.8
     NMS_THRESH = 0.3
-    fw = open(im_file+".txt", 'a')
+    fw = open(im_file+".txt", 'w')
     fw.write("{\"objects\": [\n")
     for cls_ind, cls in enumerate(CLASSES[1:]):
         cls_ind += 1 # because we skipped background
@@ -111,19 +111,20 @@ def parse_args():
     # fast_rcnn.config.cfg instance to config rcnn model.
 cfg.TEST.HAS_RPN = True  # Use RPN for proposals
 
-args = parse_args()
+# args = parse_args()
 
 # pt(layer cfg) and caffemodel is must to run model
-prototxt = os.path.join(cfg.MODELS_DIR, NETS[args.demo_net][0],
+prototxt = os.path.join(cfg.MODELS_DIR, NETS['zf'][0],
                         'faster_rcnn_alt_opt', 'faster_rcnn_test.pt')
 caffemodel = os.path.join(cfg.DATA_DIR, 'faster_rcnn_models',
-                            NETS[args.demo_net][1])
+                            NETS['zf'][1])
 
 if not os.path.isfile(caffemodel):
     raise IOError(('{:s} not found.\nDid you run ./data/script/'
                     'fetch_faster_rcnn_models.sh?').format(caffemodel))
 
-if args.cpu_mode:
+if 1:
+#if args.cpu_mode:
     caffe.set_mode_cpu()
 else:
     caffe.set_mode_gpu()

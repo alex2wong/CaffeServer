@@ -1,11 +1,10 @@
-from flask import Flask, jsonify, request, abort, Response
+from flask import Flask, jsonify, request, abort, Response, make_response
 from time import time
 from uuid import uuid4
 import json
 import os
 import sys
-# import imageop
-# import demo
+import demo
 
 app = Flask(__name__)
 
@@ -57,8 +56,15 @@ def addImage():
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         print 'Test for data/demo/{}'.format(im_name)
         demo.imageClassify(demo.net, im_name)
-    return jsonify(msg='upload success', imageurl='./assets/' + imageName)
+
+    txt = open('./assets/' + imageName + '.txt', 'r')
+    content = txt.read()
+    res = make_response(jsonify(msg='upload success', imageurl='./assets/' + imageName,
+         objs=content))
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8000)
+    app.run(host='0.0.0.0', port=8000)
     
+
