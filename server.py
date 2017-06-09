@@ -5,6 +5,7 @@ import json
 import os
 import sys
 #import imageop
+import demo
 
 app = Flask(__name__)
 
@@ -50,7 +51,15 @@ def addImage():
     imageName = content.filename
     print('Saving to filepath ./assets/' + imageName)
     content.save('./assets/' + imageName)
+    # ready2 run image classify
+    im_names = [imageName]
+    for im_name in im_names:
+        print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+        print 'Test for data/demo/{}'.format(im_name)
+        demo.imageClassify(demo.net, im_name)
     return jsonify(msg='upload success', imageurl='./assets/' + imageName)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8000)
+    app.run(host='0.0.0.0', port=8000)
+    
+
