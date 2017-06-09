@@ -4,8 +4,8 @@ from uuid import uuid4
 import json
 import os
 import sys
-import imageop
-import demo
+# import imageop
+# import demo
 
 app = Flask(__name__)
 
